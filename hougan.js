@@ -1,10 +1,13 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 let N = 10;
+let Color=2;
 const W = canvas.width
 const H = canvas.height
+const Color_list=["white","red", "blue","green","yellow","lime","aqua","fuchsia","olive","purple","maroon"]
 
 const masume= document.getElementById("masume")
+const color= document.getElementById("color")
 let BW = new Array(10);
 
 function fresh_change(){
@@ -48,6 +51,20 @@ function fresh_change(){
     }
 }
 
+function colors_change(){
+    Color = color.value
+
+    if (Color<2){
+        Color=2;
+        color.value = Color;
+    }
+    if (Color>Color_list.length){
+        Color=Color_list.length;
+        color.value = Color;
+    }
+
+}
+
 function mouseClick(event){
     const click_x = event.offsetX;
     const click_y = event.offsetY;
@@ -68,23 +85,19 @@ function mouseClick(event){
     }
 
     if (masu_x!=-1 & masu_y!=-1){
-        BW[masu_x][masu_y]^=1;
+        BW[masu_x][masu_y]+=1;
+        BW[masu_x][masu_y]%=Color;
 
-        if (BW[masu_x][masu_y]==1){
-            ctx.fillStyle = 'red';
-            ctx.fillRect(W/N*masu_x,H/N*masu_y,W/N,H/N);
-            ctx.strokeStyle = 'black';
-            ctx.strokeRect(W/N*masu_x,H/N*masu_y,W/N,H/N);
-        }
-        else{
-            ctx.fillStyle = 'white';
-            ctx.fillRect(W/N*masu_x,H/N*masu_y,W/N,H/N);
-            ctx.strokeStyle = 'black';
-            ctx.strokeRect(W/N*masu_x,H/N*masu_y,W/N,H/N);
-        }
+        ctx.fillStyle = Color_list[BW[masu_x][masu_y]]
+        ctx.fillRect(W/N*masu_x,H/N*masu_y,W/N,H/N);
+        ctx.strokeStyle = 'black';
+        ctx.strokeRect(W/N*masu_x,H/N*masu_y,W/N,H/N);
+
     }
+    
 }
 
 fresh_change()
 canvas.addEventListener('click', mouseClick);
 masume.addEventListener('change', fresh_change);
+color.addEventListener('change', colors_change);
