@@ -55,18 +55,16 @@ function mouseClick(event){
     let masu_x=-1;
     let masu_y=-1;
 
-    for (let i=0;i<N;i+=1){
-        if (W/N*i<click_x & click_x<W/N*(i+1)){
-            masu_x=i;
-            break;
-        }
+
+    masu_x=0^(click_x/(W/N));
+    masu_y=0^(click_y/(H/N));
+
+    if (masu_x*(W/N)==click_x){
+        masu_x=-1;
     }
 
-    for (let i=0;i<N;i+=1){
-        if (H/N*i<click_y & click_y<H/N*(i+1)){
-            masu_y=i;
-            break;
-        }
+    if (masu_y*(H/N)==click_y){
+        masu_y=-1;
     }
 
     if (masu_x!=-1 & masu_y!=-1){
