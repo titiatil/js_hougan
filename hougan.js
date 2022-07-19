@@ -84,7 +84,7 @@ function mouseClick(event) {
         masu_y = -1;
     }
 
-    if (masu_x != -1 & masu_y != -1) {
+    if (masu_x != -1 && masu_y != -1) {
         BW[masu_x][masu_y] += 1;
         BW[masu_x][masu_y] %= Color;
 
