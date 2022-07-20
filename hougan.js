@@ -1,7 +1,5 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-let N = 10;
-let Color = 2;
 const W = canvas.width
 const H = canvas.height
 const Color_list = ["white", "red", "blue", "green", "yellow", "lime", "aqua", "fuchsia", "olive", "purple", "maroon"]
@@ -11,18 +9,13 @@ const color = document.getElementById("color")
 let BW = new Array(10);
 
 function fresh_change() {
-    //console.log(event);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    N = masume.value
+    let N = masume.value;
 
-    if (N < 1) {
-        N = 1;
-        masume.value = N;
-    }
-    if (N > 100) {
-        N = 100;
-        masume.value = N;
-    }
+    N = Math.max(N, 2);
+    N = Math.min(N, 100);
+    masume.value = N;
+
     for (let i = 0; i < N + 1; i += 1) {
         ctx.beginPath();
         ctx.moveTo(0, H / N * i);
@@ -36,7 +29,6 @@ function fresh_change() {
         ctx.closePath();
 
         ctx.stroke();
-        //ctx.fill();
     }
 
     BW = new Array(N);
@@ -52,26 +44,21 @@ function fresh_change() {
 }
 
 function colors_change() {
-    Color = color.value
-
-    if (Color < 2) {
-        Color = 2;
-        color.value = Color;
-    }
-    if (Color > Color_list.length) {
-        Color = Color_list.length;
-        color.value = Color;
-    }
-
+    let Color = color.value;
+    Color = Math.max(Color, 2);
+    Color = Math.min(Color, Color_list.length);
+    color.value = Color;
 }
 
 function mouseClick(event) {
+    let N = masume.value;
+    let Color = color.value;
+
     const click_x = event.offsetX;
     const click_y = event.offsetY;
 
     let masu_x = -1;
     let masu_y = -1;
-
 
     masu_x = 0 ^ (click_x / (W / N));
     masu_y = 0 ^ (click_y / (H / N));
